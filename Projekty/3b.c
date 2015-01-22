@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+// #include <time.h>
 
 void createMatrix(int*** matrix, int k, int w);
 void printMatrix(int** matrix, int k, int w);
@@ -14,43 +14,38 @@ int checkMatrixForThreeDigitsNumbers(int** matrix, int*** threeDigitsIndexes, in
 
 int main()
 {
-  int i,j,l,m;
+  int i,j,l;
 
   int** matrix;
   int** threeDigitsIndexes;//tablica dwuwymiarowa o k*w - kolumnach i 2 wierszach
-  int k=3;
-  int w=8;
+  int k,w;
 
-  srand(time(NULL));
+  // srand(time(NULL));
+
+  printf("Podaj ilosc kolumn macierzy\n");
+  scanf("%d",&k);
+  printf("Podaj ilosc wierszy macierzy\n");
+  scanf("%d",&w);
 
   createMatrix(&matrix,k,w);
 
-  // for(i=0;i<w;i++)
-  // {
-  //   for(j=0;j<k;j++)
-  //   {
-  //     matrix[i][j] = rand()%9999;
-  //   }
-  // }
+  printf("Uzupełnij macierz wierszami\n");
+
+  for(i=0;i<w;i++)
+  {
+    for(j=0;j<k;j++)
+    {
+      scanf("%d",&matrix[i][j]);
+      // matrix[i][j] = rand()%9999;
+    }
+  }
 
   createMatrix(&threeDigitsIndexes,k*w,2);
 
-  // printMatrix(matrix,k,w);
+  l = checkMatrixForThreeDigitsNumbers(matrix, &threeDigitsIndexes, k, w);
 
-  for(m=0;m<100;m++)
-  {
-    for(i=0;i<w;i++)
-    {
-      for(j=0;j<k;j++)
-      {
-        matrix[i][j] = rand()%9999;
-      }
-    }
+  printMatrix(threeDigitsIndexes,l,2);
 
-    l = checkMatrixForThreeDigitsNumbers(matrix, &threeDigitsIndexes, k, w);
-
-    printMatrix(threeDigitsIndexes,l,2);
-  }
 
   destroyMatrix(&threeDigitsIndexes,k*w,2);
   destroyMatrix(&matrix,k,w);
@@ -125,7 +120,6 @@ int checkMatrixForThreeDigitsNumbers(int** matrix, int*** threeDigitsIndexes, in
     {
       if(matrix[i][j]>=100 && matrix[i][j]<1000)
       {
-        // printf("i: %d,j: %d, wartosc: %d\n", i,j,matrix[i][j]);
         (*threeDigitsIndexes)[0][l] = i;
         (*threeDigitsIndexes)[1][l++] = j;
       }

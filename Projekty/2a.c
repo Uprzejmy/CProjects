@@ -27,7 +27,7 @@ int main()
 
   interval=(end-start)/pointsToPrint;
   printf("    |    x       |pow((1+x),y)|   szereg(x) |\n");
-  printf("    ----------------------------------------\n");
+  printf("    |------------+------------+-------------|\n");
   for(x=start;x<=end;x+=interval)
   {
     printf("    | %10.6lf | %10.6lf | %10.6lf  |\n",x,pow((1+x),y),series(x,y));
